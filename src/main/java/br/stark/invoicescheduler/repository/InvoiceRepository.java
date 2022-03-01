@@ -4,7 +4,6 @@
  */
 package br.stark.invoicescheduler.repository;
 
-import br.stark.invoicescheduler.entity.InvoiceTime;
 import com.starkbank.Invoice;
 import java.util.List;
 

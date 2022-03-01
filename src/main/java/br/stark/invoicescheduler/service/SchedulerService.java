@@ -11,39 +11,46 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.joda.time.*;
 import com.starkbank.*;
+import java.util.Date;
 import java.util.stream.Collectors;
 import lombok.Data;
+
 /**
  *
  * @author lucas
  */
 @Data
 public class SchedulerService {
+
     private String lastId = "";
+
     public Invoice isScheduledTime() throws MalformedURLException {
 
         var lastItemCreated = hasLastItem();
-        
+
         if (lastItemCreated != null) {
 
             String timestamp = hasLastItem().created;
 
             timestamp = String.valueOf(new DateTime(timestamp).getMillis());
-//            var timestamp = String.valueOf(new DateTime("2022-03-01T02:59:02.815762+00:00").getMillis());
+//            timestamp = String.valueOf(new DateTime("2022-03-01T02:59:02.815762+00:00").getMillis());
 
             Long lastTime = Long.parseLong(timestamp);
-            
+
             var now = DateTime.now(DateTimeZone.UTC);
 
             var currentTime = now.getMillis();
 
             var interval = new Interval(lastTime, currentTime).toDurationMillis();
-            
+
             // 1h=3600000 / 3h=10800000
-            if (interval >= 10800000 && !(lastId.equals(lastItemCreated.id))) {
-                lastId = lastItemCreated.id;
-                System.out.println("*=*=*=*=*=*=*=*=Return schedule *=*=*=*=*=*=*=*=");
-                return lastItemCreated;
+            if (interval >= 10800000) {
+                lastId = "";
+                if (!(lastId.equals(lastItemCreated.id))) {
+                    lastId = lastItemCreated.id;
+                    System.out.println("*=*=*=*=*=*=*=*=Return schedule *=*=*=*=*=*=*=*=");
+                    return lastItemCreated;
+                }
             }
         }
 

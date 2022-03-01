@@ -46,15 +46,15 @@ public class InvoiceScheduler {
                     var currentDay = DateTime.now().dayOfYear().get();
 
                     if (beginDay != currentDay) {
+                        System.out.println("Scheduler encerrado 24H depois.");
                         timer.cancel();
                         timer.purge();
-                        System.out.println("Scheduler encerrado 24H depois.");
                     }
 
                     var scheduledInvoice = scheduleService.isScheduledTime();
-
+                    
                     if (scheduledInvoice != null) {
-
+                        
                         wrapper.lastScheduled = scheduledInvoice.id;
                         
                         var newInvoices = createInvoicesForRandomCustomers();
