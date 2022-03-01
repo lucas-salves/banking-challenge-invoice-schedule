@@ -29,6 +29,7 @@ public class SchedulerService {
             String timestamp = hasLastItem().created;
 
             timestamp = String.valueOf(new DateTime(timestamp).getMillis());
+//            var timestamp = String.valueOf(new DateTime("2022-03-01T02:59:02.815762+00:00").getMillis());
 
             Long lastTime = Long.parseLong(timestamp);
             
